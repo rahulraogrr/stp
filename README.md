@@ -1,2 +1,2 @@
-# stp
+# STP
 Straight Through Process 
