@@ -1,0 +1,8 @@
+server:
+  port: 9094
+  
+spring:
+  application:
+    name: POLICY-SERVICE
+  config:
+    import: "optional:configserver:"

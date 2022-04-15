@@ -1,0 +1,8 @@
+server:
+  port: 9093
+  
+spring:
+  application:
+    name: AUTH-SERVER
+  config:
+    import: "optional:configserver:"

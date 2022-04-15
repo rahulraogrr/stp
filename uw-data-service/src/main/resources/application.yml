@@ -1,0 +1,8 @@
+server:
+  port: 9095
+  
+spring:
+  application:
+    name: UW-DATA-SERVICE
+  config:
+    import: "optional:configserver:"
