@@ -17,10 +17,14 @@ import com.example.user.entities.User;
 import com.example.user.services.UserService;
 import com.example.user.vo.UserVO;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+	private static final String DEPT_SERVICE = "deptService"; 
+	
 	@Autowired
 	private UserService userService;
 
@@ -31,6 +35,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
+	@CircuitBreaker(name = DEPT_SERVICE, fallbackMethod = "deptServiceFallback")
 	public ResponseEntity<UserVO> getUserById(@PathVariable Long id){
 		return ResponseEntity.ok(userService.getUserById(id)); 
 	}
@@ -44,5 +49,9 @@ public class UserController {
 	public ResponseEntity<?> deleteUserById(@PathVariable Long id){
 		userService.deleteUserById(id);
 		return ResponseEntity.ok("Resource Deleted Successfully"); 
+	}
+	
+	public ResponseEntity<UserVO> deptServiceFallback(Exception e) {
+		return ResponseEntity.ok(new UserVO());
 	}
 }
